@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Inter:wght@400;500;600&display=swap');
+        
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #F3F4F6;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hindi-text {
+            font-family: 'Tiro Devanagari Hindi', serif;
+        }
+
+        /* A4 Paper styling */
+        .a4-paper {
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm; /* Reduced padding */
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e5e7eb;
+            color: #000;
+            box-sizing: border-box;
+            overflow: hidden; /* Force content to stay inside one page */
+        }
+
+        .notice-content {
+            font-size: 14.5px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .notice-content p {
+            margin-bottom: 12px;
+            text-indent: 0px;
+        }
+
+        .dotted-line {
+            border-bottom: 1px dotted #000;
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .dotted-line-container {
+            display: flex;
+            align-items: baseline;
+            width: 100%;
+        }
+
+        .dotted-line-container span.dotted-line {
+            flex-grow: 1;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .a4-paper {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 10mm;
+                width: 210mm;
+                height: 297mm;
+                overflow: hidden;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 flex flex-col md:flex-row">
+
+    <!-- Form Section -->
+    <div class="no-print w-full md:w-1/3 lg:w-1/4 p-6 bg-white shadow-xl h-screen overflow-y-auto border-r border-gray-200 z-10">
+        <h1 class="text-2xl font-bold mb-6 text-gray-900 border-b pb-4">Notice Generator</h1>
+        
+        <form id="noticeForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Notice Number</label>
+                <input type="text" id="in_noticeNo" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" value="MVNT-26062712164670">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input type="text" id="in_date" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" value="27 / 06 / 20 26">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input type="text" id="in_name" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" value="YUVRAJ (MVNNHS4890)">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <input type="text" id="in_address" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" value="1, 1, Near flax shop, 31-Navneet Nagar, 31, Phone: 9993325830">
+            </div>
+
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Fee Period (e.g. June (2026) to June (2026))</label>
+                <input type="text" id="in_period" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" value="June (2026) to June (2026)">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Amount (Rs.)</label>
+                <input type="number" id="in_amount" step="0.01" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" value="1.00">
+            </div>
+
+            <button type="button" onclick="window.print()" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors flex justify-center items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                Print Notice
+            </button>
+        </form>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="w-full md:w-2/3 lg:w-3/4 p-8 print:p-0 overflow-y-auto print:overflow-visible bg-gray-100 print:bg-transparent flex print:block items-start justify-center">
+        <div class="a4-paper hindi-text relative">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-start mb-4 mt-1">
+                <!-- Left Logo -->
+                <div class="w-32 h-28 shrink-0 flex items-center justify-start relative -mt-4">
+                    <img src="./NAGAR NIGAM LOGO .png" alt="Nagar Nigam Logo" class="w-28 h-28 object-contain" />
+                </div>
+                
+                <!-- Center Title -->
+                <div class="text-center mt-0 z-10 px-1 flex-grow">
+                    <h1 class="text-2xl font-bold mb-1 whitespace-nowrap" style="font-size: 24px; letter-spacing: 0px;">कार्यालय नगर निगम मथुरा-वृन्दावन</h1>
+                    <h2 class="text-lg font-bold mb-1" style="font-size: 20px;">नगर स्वास्थ्य अधिकारी कार्यालय</h2>
+                    <h2 class="text-base font-bold mb-1" style="font-size: 18px;">नगर निगम मथुरा वृन्दावन भूतेश्वर जोन</h2>
+                    <h1 class="text-xl font-bold mb-0" style="font-size: 24px; letter-spacing: 1px;">स्वास्थ्य विभाग</h1>
+                </div>
+
+                <!-- Right Logo (Swachh Bharat) -->
+                <div class="w-32 h-20 shrink-0 flex items-center justify-end relative -mt-2">
+                    <img src="./SWACH BHARAT LOGO .jpeg" alt="Swachh Bharat Logo" class="w-full h-full object-contain" />
+                </div>
+            </div>
+
+            <!-- Notice Info Row -->
+            <div class="relative flex justify-between items-end font-bold text-base mb-4">
+                <div class="whitespace-nowrap z-10">नोटिस क्रमांक सं. <span id="out_noticeNo" class="ml-2 font-normal font-sans">MVNT-26062712164670</span></div>
+                
+                <!-- Perfectly Centered Notice Title -->
+                <div class="absolute left-0 right-0 text-center pointer-events-none bottom-0">
+                    <h2 class="text-2xl font-bold underline inline-block" style="font-size: 28px; letter-spacing: 1px; text-underline-offset: 4px; margin-bottom: -5px;">नोटिस</h2>
+                </div>
+                
+                <div class="whitespace-nowrap text-right z-10">दिनांक <span id="out_date" class="ml-2 dotted-line font-normal font-sans !text-center px-4">27 / 06 / 20 26</span></div>
+            </div>
+
+            <!-- Person Details -->
+            <div class="mb-4 space-y-2 text-base leading-snug" style="font-size: 17px;">
+                <div class="flex items-baseline">
+                    <div class="w-16 shrink-0 font-bold">श्री</div>
+                    <div id="out_name" class="flex-grow border-b border-dotted border-black font-sans font-semibold uppercase px-1 text-lg">YUVRAJ (MVNNHS4890)</div>
+                </div>
+                <div class="flex items-baseline">
+                    <div class="w-16 shrink-0"></div>
+                    <div id="out_address" class="flex-grow border-b border-dotted border-black font-sans px-1">1, 1, Near flax shop, 31-Navneet Nagar, 31, Phone: 9993325830</div>
+                </div>
+            </div>
+
+            <!-- Notice Body -->
+            <div class="space-y-1.5 text-justify leading-relaxed" style="font-size: 15.5px;">
+                <p>
+                    आप अवगत है कि आपका आवासीय मकान / व्यवसायिक प्रतिष्ठान नगर निगम मथुरा वृन्दावन सीमान्तर्गत अवस्थित है।
+                    पर्यावरण, वन और जलवायु परिवर्तन मंत्रालय, भारत सरकार की अधिसूचना दिनांक 08 अप्रैल, 2016 द्वारा ठोस अपशिष्ट प्रबन्धन नियम
+                    2016 के अनुपालन में अपशिष्ट को श्रोत पर ही पृथक कर अलग-अलग पात्रों से संग्रहण कराते हुए स्थानीय प्राधिकरण द्वारा या निर्देशित
+                    अपशिष्ट संग्रहणकर्ताओं या अभिकरण द्वारा अपशिष्ट का समुचित निस्तारण कराया जाना अनिवार्य है।
+                </p>
+
+                <p>
+                    उक्त के क्रम में आपके आवासीय मकान/व्यवसायिक प्रतिष्ठान में कूड़े को पृथक्कीकरण उपरान्त उसके निस्तारण की कोई
+                    व्यवस्था न होने की दशा में स्थानीय प्राधिकरण अर्थात नगर निगम मथुरा वृन्दावन द्वारा नामित एजेन्सी के प्रतिनिधि द्वारा दिनांक 09.03.2026
+                    से निरन्तर रूप से आपके आवासीय मकान / व्यवसायिक प्रतिष्ठान पर जाकर आपसे पृथक्कीकृत कूड़ा प्राप्त किये जाने का प्रयास
+                    किया जा रहा है, परन्तु आप द्वारा सम्बन्धित को पृथक्कीकृत कूड़ा प्रदान नहीं किया जा रहा है केवल मिश्रित कूड़ा ही दिया जाता है
+                    जिसका यूजर चार्ज भी नियमानुसार मै० नेचर ग्रीन टूल्स एंड मशीन प्राइवेट लिमिटेड को भुगतान नहीं किया जा रहा है। यह स्थिति ठोस
+                    अपशिष्ट प्रबन्धन नियमावली-2016 में उल्लेखित प्राविधानों के प्रतिकूल तथा मा० राष्ट्रीय हरित प्राधिकरण (NGT) के आदेशों की
+                    अवहेलना के साथ साथ पर्यावरण संरक्षण अधिनियम, 1986 के अन्तर्गत दण्डनीय है। इस सम्बन्ध में मा. राष्ट्रीय हरित न्यायाधीकरण नई
+                    दिल्ली योजित वाद सं० ओ०ए०नं०-606 / 2018 में निम्न आदेश पारित किये गये है।
+                </p>
+
+                <p class="font-bold text-center font-sans my-1" style="text-indent: 0; font-size: 14px;">
+                    Waste Generators Paying User fee for Solid waste Management as Specified in the byelaws of the local bodies.
+                </p>
+
+                <p>
+                    तद्नुक्रम में आपसे इस नोटिस के माध्यम से अपेक्षा की जाती है कि आप अपने आवासीय मकान / व्यवसायिक प्रतिष्ठान द्वारा
+                    कुल उत्पादित गीला कुडा / सूखा कुडा / अपशिष्ट को पृथक्कीकरण कर आपके क्षेत्र में नगर निगम मथुरा वृन्दावन से कूड़ा उठाने वाले नगर
+                    निगम की अधिकृत एजेन्सी मै० नेचर ग्रीन टूल्स एंड मशीन प्राइवेट लिमिटेड को निर्धारित यूजर चार्ज जमा कर, पृथक्कीकृत कूड़ा प्रदान किया
+                    जाना सुनिश्चित करें, जिससे उसका समुचित निस्तारण नगर निगम मथुरा वृन्दावन द्वारा किया जा सकें।
+                </p>
+                
+                <!-- Fee Details Section -->
+                <div class="mt-1.5 mb-1.5 space-y-1" style="text-indent: 0;">
+                    <div class="flex items-center">
+                        <span class="mr-2 font-bold">यूजर चार्ज का विवरण :</span>
+                        <span id="out_period" class="font-sans">June (2026) to June (2026)</span>
+                    </div>
+                    <div class="dotted-line-container mt-1">
+                        <span class="dotted-line" style="flex-grow: 0; width: 40%;"></span>
+                        <span class="font-sans ml-4 font-bold"><span id="out_amount_display">1.00</span> (Rs. <span id="out_amount_month">1.00</span> per month)</span>
+                        <span class="dotted-line ml-4" style="flex-grow: 1;"></span>
+                    </div>
+                </div>
+
+                <div class="mt-1.5 mb-1.5 space-y-1" style="text-indent: 0;">
+                    <div class="dotted-line-container">
+                        <span class="mr-2 font-bold">उपरोक्त नोटिस की प्राप्ति के 07 दिवस में निर्धारित निम्न यूजर चार्जेज रू०</span>
+                        <span id="out_amount" class="dotted-line font-sans font-bold px-4 !text-left" style="flex-grow: 1; font-size: 17px;">1.00</span>
+                    </div>
+                    <div class="dotted-line-container mt-1">
+                        <span class="mr-2 font-bold">शब्दों में</span>
+                        <span id="out_words" class="dotted-line font-sans font-bold px-4 !text-left" style="flex-grow: 1; font-size: 16px;">One Rupee Only</span>
+                    </div>
+                </div>
+
+                <p>
+                    अविलम्ब जमाकर रसीद प्राप्त कर लें तथा नियमों का अनुपालन सुनिश्चित करें अन्यथा आप पर्यावरण, वन और जलवायु परिवर्तन
+                    मंत्रालय, भारत सरकार की अधिसूचना दिनांक 08 अप्रैल, 2016 एवं पर्यावरण संरक्षण अधिनियम, 1986 मा० राष्ट्रीय हरित प्राधिकरण
+                    (NGT) के आदेशों की अवहेलना के दोषी होगें. एवं आप पर सुसंगत अधिनियम, नियमों एवं NGT के आदेशों के अन्तर्गत नियमानुसार
+                    जुर्माना अधिरोपित करने के साथ-साथ आपके विरूद्ध नियमानुसार वैधानिक कार्यवाही की जायेगी। जिसके लिए आप स्वयं जिम्मेदार
+                    होगें।
+                </p>
+            </div>
+
+            <!-- Signature -->
+            <div class="flex justify-end mt-0 mr-8 pb-1">
+                <div class="text-center leading-tight">
+                    <span class="font-bold text-lg block">सफाई एवं खाद्य निरीक्षक</span>
+                    <span class="font-bold text-lg block mt-0.5">नगर निगम मथुरा-वृन्दावन</span>
+                    <span class="font-normal text-base block mt-0.5" id="out_date_bottom">27 / 06 / 20 26</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Number to Words Converter
+        const a = ['','One ','Two ','Three ','Four ', 'Five ','Six ','Seven ','Eight ','Nine ','Ten ','Eleven ','Twelve ','Thirteen ','Fourteen ','Fifteen ','Sixteen ','Seventeen ','Eighteen ','Nineteen '];
+        const b = ['', '', 'Twenty','Thirty','Forty','Fifty', 'Sixty','Seventy','Eighty','Ninety'];
+
+        function inWords (num) {
+            if ((num = num.toString()).length > 9) return 'overflow';
+            n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+            if (!n) return; var str = '';
+            str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+            str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+            str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+            str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+            str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) : '';
+            return str.trim();
+        }
+
+        function amountToWords(amount) {
+            let [rupees, paise] = parseFloat(amount).toFixed(2).split('.');
+            let wordStr = inWords(parseInt(rupees)) + ' Rupee' + (parseInt(rupees) > 1 ? 's' : '');
+            if (parseInt(paise) > 0) {
+                wordStr += ' and ' + inWords(parseInt(paise)) + ' Paise';
+            }
+            return wordStr + ' Only';
+        }
+
+        // Live Binding
+        const fields = ['noticeNo', 'name', 'address', 'period'];
+        
+        fields.forEach(field => {
+            const input = document.getElementById('in_' + field);
+            const output = document.getElementById('out_' + field);
+            input.addEventListener('input', (e) => {
+                output.innerText = e.target.value || '\u00A0';
+            });
+        });
+
+        // Special handling for date
+        const inDate = document.getElementById('in_date');
+        const outDate = document.getElementById('out_date');
+        const outDateBottom = document.getElementById('out_date_bottom');
+        inDate.addEventListener('input', (e) => {
+            outDate.innerText = e.target.value || '\u00A0';
+            outDateBottom.innerText = e.target.value || '';
+        });
+
+        // Amount handling
+        const amountInput = document.getElementById('in_amount');
+        const amountOut = document.getElementById('out_amount');
+        const amountDisplay = document.getElementById('out_amount_display');
+        const amountMonth = document.getElementById('out_amount_month');
+        const amountWords = document.getElementById('out_words');
+
+        function updateAmount() {
+            const val = parseFloat(amountInput.value).toFixed(2);
+            amountOut.innerText = val;
+            amountDisplay.innerText = val;
+            amountMonth.innerText = val;
+            
+            if (val > 0) {
+                amountWords.innerText = amountToWords(val);
+            } else {
+                amountWords.innerText = '';
+            }
+        }
+
+        amountInput.addEventListener('input', updateAmount);
+        // Initial setup
+        updateAmount();
+    </script>
+</body>
+</html>
