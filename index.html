@@ -89,11 +89,36 @@
         }
     </style>
 </head>
-<body class="min-h-screen text-gray-800 flex flex-col md:flex-row">
+<body class="h-screen w-screen text-gray-800 flex flex-col bg-gray-50 overflow-hidden">
 
-    <!-- Form Section -->
-    <div class="no-print w-full md:w-1/3 lg:w-1/4 p-6 bg-white shadow-xl h-screen overflow-y-auto border-r border-gray-200 z-10">
-        <h1 class="text-2xl font-bold mb-6 text-gray-900 border-b pb-4">Notice Generator</h1>
+    <!-- Portal Header -->
+    <nav class="bg-indigo-700 text-white shadow-md w-full no-print z-20 shrink-0">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-14">
+                <div class="flex items-center">
+                    <svg class="h-7 w-7 mr-3 text-indigo-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span class="font-bold text-lg tracking-wide uppercase">Notice Portal</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center font-bold shadow-inner border border-indigo-400">A</div>
+                        <span class="text-sm font-medium">Admin Panel</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
+        <!-- Form Section -->
+        <div class="no-print w-full md:w-1/3 lg:w-1/4 p-6 bg-white shadow-xl h-full overflow-y-auto border-r border-gray-200 z-10">
+            <h2 class="text-lg font-bold mb-5 text-gray-900 border-b pb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                Generate Notice
+            </h2>
         
         <form id="noticeForm" class="space-y-4">
             <div>
@@ -260,6 +285,15 @@
 
         </div>
     </div>
+    </div> <!-- Close Main Content Area -->
+
+    <!-- Portal Footer -->
+    <footer class="bg-white border-t border-gray-200 text-center py-3 no-print text-sm text-gray-600 z-20 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+        <p class="font-medium tracking-wide">
+            &copy; 2026 Notice Portal. 
+            <span class="text-indigo-700 font-bold ml-1">DEVELOPED BY YUVRAJ SINGH TOMAR</span>
+        </p>
+    </footer>
 
     <script>
         // Number to Words Converter
